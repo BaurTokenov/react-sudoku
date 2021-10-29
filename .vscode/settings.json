@@ -4,5 +4,7 @@
   },
   "editor.formatOnSave": true,
   "javascript.format.enable": false,
+  "typescript.autoClosingTags": true,
+  "javascript.autoClosingTags": true,
   "material-icon-theme.activeIconPack": "react_redux"
 }
