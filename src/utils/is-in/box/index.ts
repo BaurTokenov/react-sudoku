@@ -24,14 +24,6 @@ export default function isInSameBox({
   const boxColStart = Math.floor(col / 3) * 3
   const boxRowEnd = boxRowStart + 2
   const boxColEnd = boxColStart + 2
-  console.log({
-    row,
-    col,
-    boxRowStart,
-    boxRowEnd,
-    boxColStart,
-    boxColEnd,
-  })
   for (let i = boxRowStart; i <= boxRowEnd; i += 1) {
     for (let j = boxColStart; j <= boxColEnd; j += 1) {
       if (grid[i][j] === value) {

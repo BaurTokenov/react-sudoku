@@ -5,13 +5,12 @@ import { Container } from './styles'
 interface IProps {
   rowIndex: number
   colIndex: number
+  value: number
 }
 
-const Block: React.FC<IProps> = ({ rowIndex, colIndex }) => {
+const Block: React.FC<IProps> = ({ rowIndex, colIndex, value }) => {
   return (
-    <Container data-cy={`block-${rowIndex}-${colIndex}`}>
-      {rowIndex * 9 + colIndex}
-    </Container>
+    <Container data-cy={`block-${rowIndex}-${colIndex}`}>{value}</Container>
   )
 }
 
