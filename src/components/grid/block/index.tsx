@@ -12,12 +12,15 @@ interface IProps {
 
 interface IState {
   value: N
+  isActive: boolean
 }
 
 const Block: React.FC<IProps> = ({ rowIndex, colIndex }) => {
-  console.log({ rowIndex, colIndex })
-  const state = useSelector<IReducer, IState>(({ grid }) => ({
+  const state = useSelector<IReducer, IState>(({ grid, selectedBlock }) => ({
     value: grid ? grid[rowIndex][colIndex] : 0,
+    isActive: selectedBlock
+      ? selectedBlock[0] === rowIndex && selectedBlock[1] === colIndex
+      : false,
   }))
 
   const dispatch = useDispatch<Dispatch<AnyAction>>()
@@ -27,7 +30,11 @@ const Block: React.FC<IProps> = ({ rowIndex, colIndex }) => {
   }
 
   return (
-    <Container data-cy={`block-${rowIndex}-${colIndex}`} onClick={handleClick}>
+    <Container
+      data-cy={`block-${rowIndex}-${colIndex}`}
+      onClick={handleClick}
+      active={state.isActive}
+    >
       {state.value === 0 ? '' : state.value}
     </Container>
   )

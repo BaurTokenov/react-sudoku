@@ -1,8 +1,12 @@
 import styled, { css } from 'styled-components'
 
-export const Container = styled.div`
-  ${({ theme }) => css`
-    background-color: ${theme.colors.white};
+interface IProps {
+  active?: boolean
+}
+
+export const Container = styled.div<IProps>`
+  ${({ theme, active }) => css`
+    background-color: ${active ? theme.colors.blue : theme.colors.white};
     border: solid 1px ${theme.colors.black};
     cursor: pointer;
     display: flex;
