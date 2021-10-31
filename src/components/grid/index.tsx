@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { AnyAction, Dispatch } from 'redux'
 
 import { Container, Row } from './styles'
 import Block from './block'
 import { GRID } from 'types'
 import { createFullGrid } from 'utils'
 
+import { createGrid } from 'reducers'
 const gridStart: GRID = [
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
   [0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -18,12 +21,19 @@ const gridStart: GRID = [
 ]
 
 const Grid: React.FC = () => {
+  const dispatch = useDispatch<Dispatch<AnyAction>>()
+
+  const create = useCallback(() => {
+    dispatch(createGrid())
+  }, [dispatch])
+
   const [grid, setGrid] = useState<GRID>(gridStart)
   console.log({ grid })
+
   React.useEffect(() => {
-    const newGrid = createFullGrid()
-    setGrid(newGrid)
-  }, [])
+    create()
+  }, [create])
+
   return (
     <Container data-cy="grid-container">
       {React.Children.toArray(

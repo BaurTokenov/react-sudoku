@@ -1,6 +1,9 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 import { Container } from './styles'
+import { IReducer } from 'reducers'
+import { N } from 'types'
 
 interface IProps {
   rowIndex: number
@@ -8,9 +11,18 @@ interface IProps {
   value: number
 }
 
-const Block: React.FC<IProps> = ({ rowIndex, colIndex, value }) => {
+interface IState {
+  value: N
+}
+
+const Block: React.FC<IProps> = ({ rowIndex, colIndex }) => {
+  const state = useSelector<IReducer, IState>(({ grid }) => ({
+    value: grid ? grid[rowIndex][colIndex] : 0,
+  }))
   return (
-    <Container data-cy={`block-${rowIndex}-${colIndex}`}>{value}</Container>
+    <Container data-cy={`block-${rowIndex}-${colIndex}`}>
+      {state.value === 0 ? '' : state.value}
+    </Container>
   )
 }
 
