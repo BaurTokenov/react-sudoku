@@ -1,24 +1,12 @@
-import React, { useState, useCallback, useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { AnyAction, Dispatch } from 'redux'
 
 import { Container, Row } from './styles'
 import Block from './block'
-import { GRID } from 'types'
-import { createFullGrid } from 'utils'
+import { INDEX } from 'types'
 
 import { createGrid } from 'reducers'
-const gridStart: GRID = [
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-  [0, 0, 0, 0, 0, 0, 0, 0, 0],
-]
 
 const Grid: React.FC = () => {
   const dispatch = useDispatch<Dispatch<AnyAction>>()
@@ -27,23 +15,23 @@ const Grid: React.FC = () => {
     dispatch(createGrid())
   }, [dispatch])
 
-  const [grid, setGrid] = useState<GRID>(gridStart)
-  console.log({ grid })
-
-  React.useEffect(() => {
+  useEffect(() => {
     create()
   }, [create])
 
   return (
     <Container data-cy="grid-container">
       {React.Children.toArray(
-        grid.map((row, rowIndex) => (
+        [...Array(9)].map((_, rowIndex) => (
           <Row data-cy="grid-row-container">
             {React.Children.toArray(
-              row.map((number, colIndex) => (
+              [...Array(9)].map((_, colIndex) => (
                 <Block
                   data-cy="block"
-                  {...{ colIndex, rowIndex, value: number }}
+                  {...{
+                    colIndex: colIndex as INDEX,
+                    rowIndex: rowIndex as INDEX,
+                  }}
                 />
               ))
             )}

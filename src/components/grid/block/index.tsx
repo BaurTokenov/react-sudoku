@@ -1,14 +1,13 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-
+import { useSelector, useDispatch } from 'react-redux'
+import { Dispatch, AnyAction } from 'redux'
 import { Container } from './styles'
-import { IReducer } from 'reducers'
-import { N } from 'types'
+import { IReducer, selectBlock } from 'reducers'
+import { INDEX, N } from 'types'
 
 interface IProps {
-  rowIndex: number
-  colIndex: number
-  value: number
+  rowIndex: INDEX
+  colIndex: INDEX
 }
 
 interface IState {
@@ -16,11 +15,19 @@ interface IState {
 }
 
 const Block: React.FC<IProps> = ({ rowIndex, colIndex }) => {
+  console.log({ rowIndex, colIndex })
   const state = useSelector<IReducer, IState>(({ grid }) => ({
     value: grid ? grid[rowIndex][colIndex] : 0,
   }))
+
+  const dispatch = useDispatch<Dispatch<AnyAction>>()
+
+  function handleClick() {
+    dispatch(selectBlock([rowIndex, colIndex]))
+  }
+
   return (
-    <Container data-cy={`block-${rowIndex}-${colIndex}`}>
+    <Container data-cy={`block-${rowIndex}-${colIndex}`} onClick={handleClick}>
       {state.value === 0 ? '' : state.value}
     </Container>
   )
