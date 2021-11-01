@@ -1,7 +1,7 @@
 import { GRID, NUMBERS } from 'types'
 import { shuffle } from 'utils'
 import checkGrid from 'utils/check-grid'
-import { isInCol, isInRow, isInSameBox } from 'utils/is-in'
+import { isInCol, isInRow, isInSameBox } from 'utils'
 
 const numbers: NUMBERS[] = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 /**
@@ -39,7 +39,6 @@ function fillGrid(grid: GRID) {
         // otherwise recursively run the function
       }
       break
-    } else {
     }
   }
 
