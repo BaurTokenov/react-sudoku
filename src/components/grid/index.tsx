@@ -5,9 +5,9 @@ import { AnyAction, Dispatch } from 'redux'
 
 import { Container, Row } from './styles'
 import Block from './block'
-import { BLOCK_COORDS, INDEX } from 'types'
+import { BLOCK_COORDS, INDEX, NUMBERS } from 'types'
 
-import { createGrid, IReducer, selectBlock } from 'reducers'
+import { createGrid, IReducer, selectBlock, fillBlock } from 'reducers'
 
 interface IState {
   selectedBlock: BLOCK_COORDS
@@ -80,6 +80,23 @@ const Grid: React.FC = () => {
   useMousetrap('right', moveRight)
   useMousetrap('down', moveDown)
   useMousetrap('left', moveLeft)
+  useMousetrap('1', () => handleFill(1))
+  useMousetrap('2', () => handleFill(2))
+  useMousetrap('3', () => handleFill(3))
+  useMousetrap('4', () => handleFill(4))
+  useMousetrap('5', () => handleFill(5))
+  useMousetrap('6', () => handleFill(6))
+  useMousetrap('7', () => handleFill(7))
+  useMousetrap('8', () => handleFill(8))
+  useMousetrap('9', () => handleFill(9))
+
+  const handleFill = useCallback(
+    (value: NUMBERS) => {
+      console.log(value)
+      dispatch(fillBlock(value))
+    },
+    [dispatch]
+  )
 
   return (
     <Container data-cy="grid-container">

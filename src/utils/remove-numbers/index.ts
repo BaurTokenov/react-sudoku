@@ -8,7 +8,7 @@ import global from 'global'
  * @param attempts number of attempts to solve (higher means more difficult)
  * @returns
  */
-function removeNumbers(grid: GRID, attempts = 5): GRID {
+function removeNumbers(grid: GRID, attempts = 1): GRID {
   while (attempts > 0) {
     let row = getRandomIndex()
     let col = getRandomIndex()
