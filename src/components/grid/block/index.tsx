@@ -13,15 +13,26 @@ interface IProps {
 interface IState {
   value: N
   isActive: boolean
+  isPuzzle: boolean
+  isHighlighted: boolean
 }
 
 const Block: React.FC<IProps> = ({ rowIndex, colIndex }) => {
   const state = useSelector<IReducer, IState>(
-    ({ workingGrid, selectedBlock }) => ({
+    ({ workingGrid, selectedBlock, challengeGrid }) => ({
       value: workingGrid ? workingGrid[rowIndex][colIndex] : 0,
+      isPuzzle:
+        challengeGrid && challengeGrid[rowIndex][colIndex] !== 0 ? true : false,
       isActive: selectedBlock
         ? selectedBlock[0] === rowIndex && selectedBlock[1] === colIndex
         : false,
+      isHighlighted:
+        workingGrid &&
+        selectedBlock &&
+        workingGrid[selectedBlock[0]][selectedBlock[1]] ===
+          workingGrid[rowIndex][colIndex]
+          ? true
+          : false,
     })
   )
 
@@ -38,6 +49,8 @@ const Block: React.FC<IProps> = ({ rowIndex, colIndex }) => {
       data-cy={`block-${rowIndex}-${colIndex}`}
       onClick={handleClick}
       active={state.isActive}
+      puzzle={state.isPuzzle}
+      highlighted={state.isHighlighted}
     >
       {state.value === 0 ? '' : state.value}
     </Container>
